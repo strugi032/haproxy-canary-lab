@@ -6,7 +6,7 @@ A lightweight, practical project demonstrating HAProxy concepts including load b
 To demonstrate how HAProxy operates as an HTTP reverse proxy and load balancer in a minimal Docker Compose environment, focusing on operational tasks like node maintenance and traffic shifting without complex application frameworks or orchestration tools.
 
 ## Architecture Diagram
-*(Diagram details to be added in Phase 4 docs/architecture.md)*
+![Architecture Diagram](docs/architecture.png)
 
 ## Prerequisites
 * Docker
