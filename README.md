@@ -1,30 +1,78 @@
 # HAProxy Canary Lab
 
-A lightweight, practical project demonstrating HAProxy concepts including load balancing, active health checks, canary deployments, and dynamic configuration via the Runtime API.
+A practical project demonstrating how HAProxy operates as a load balancer and handles canary deployments via the Runtime API.
 
-## Project Purpose
-To demonstrate how HAProxy operates as an HTTP reverse proxy and load balancer in a minimal Docker Compose environment, focusing on operational tasks like node maintenance and traffic shifting without complex application frameworks or orchestration tools.
+## What this lab demonstrates
+* HAProxy HTTP traffic distribution.
+* Weighted round-robin balancing between stable (`v1`) and canary (`v2`) nodes.
+* Active HTTP health checks to automatically remove unhealthy nodes.
+* Dynamically changing canary traffic weights without restarting HAProxy.
+* Immediate rollback to stable nodes.
 
-## Architecture Diagram
-![Architecture Diagram](docs/architecture.png)
+## Architecture
+- HAProxy Frontend: `:8080`
+- HAProxy Stats Page: `:8404`
+- HAProxy Runtime API: `127.0.0.1:9999`
+- Backends:
+  - `web-v1-a` (Stable)
+  - `web-v1-b` (Stable)
+  - `web-v2-canary` (Canary)
 
-## Prerequisites
-* Docker
-* Docker Compose
-* `curl`
-* `make` (optional, for convenience commands)
-* `nc` or `socat` (for Runtime API, `nc` is available on most systems)
+## Usage Commands
 
-## How to Start the Lab
-1. Run `make up` (or `docker compose up -d`).
-2. Access the application at `http://localhost:8080`.
-3. Access the statistics page at `http://localhost:8404`.
+**Start the lab:**
+```bash
+make up
+```
 
-## How to Validate the HAProxy Configuration
-Run `make validate` (or `docker compose run --rm haproxy haproxy -c -f /usr/local/etc/haproxy/haproxy.cfg`).
+**Validate HAProxy configuration:**
+```bash
+make validate
+```
 
-## How to Send Test Requests
-Run `make test` (or `curl -s -i localhost:8080`). Note the `X-Backend-Server` response header which shows the backend node that served the request.
+**Test a single request:**
+```bash
+make test
+```
 
----
-*Note: This project is being developed in phases. Further documentation, shell scripts, and advanced scenarios will be added in upcoming phases.*
+**Check traffic distribution (default 100 requests):**
+```bash
+make distribution
+# Or specify request count:
+make distribution REQUESTS=200
+```
+
+**Set canary percentage (e.g. 25%):**
+```bash
+make canary PERCENT=25
+```
+
+**Rollback to 100% stable:**
+```bash
+make rollback
+```
+
+**View current backend status (weights & health):**
+```bash
+make status
+```
+
+**Access the Statistics page:**
+Open [http://localhost:8404](http://localhost:8404) in your browser.
+
+**Stop the lab:**
+```bash
+make down
+```
+
+Example flow:
+```bash
+make up
+make validate
+make distribution
+make canary PERCENT=25
+make distribution
+make rollback
+make distribution
+make down
+```
