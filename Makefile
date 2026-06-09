@@ -1,4 +1,4 @@
-.PHONY: up down restart status logs validate test distribution clean
+.PHONY: up down restart logs validate test status distribution canary rollback clean
 
 up:
 	docker compose up -d
@@ -9,9 +9,6 @@ down:
 restart:
 	docker compose restart haproxy
 
-status:
-	docker compose ps
-
 logs:
 	docker compose logs -f haproxy
 
@@ -20,6 +17,23 @@ validate:
 
 test:
 	curl -s -i localhost:8080
+
+status:
+	./scripts/show-status.sh
+
+REQUESTS ?= 100
+distribution:
+	./scripts/show-distribution.sh $(REQUESTS)
+
+canary:
+	@if [ -z "$(PERCENT)" ]; then \
+		echo "Error: PERCENT is missing. Usage: make canary PERCENT=10"; \
+		exit 1; \
+	fi
+	./scripts/set-canary.sh $(PERCENT)
+
+rollback:
+	./scripts/rollback.sh
 
 clean:
 	docker compose down -v --remove-orphans
