@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <percentage>"
     exit 1
@@ -18,8 +20,11 @@ STABLE_TOTAL=$((100 - PERCENT))
 V1A_WEIGHT=$((STABLE_TOTAL / 2))
 V1B_WEIGHT=$((STABLE_TOTAL - V1A_WEIGHT))
 
+echo "Setting canary weight to $CANARY_WEIGHT..."
+
 echo "set weight application/web-v1-a $V1A_WEIGHT" | nc 127.0.0.1 9999 >/dev/null
 echo "set weight application/web-v1-b $V1B_WEIGHT" | nc 127.0.0.1 9999 >/dev/null
 echo "set weight application/web-v2-canary $CANARY_WEIGHT" | nc 127.0.0.1 9999 >/dev/null
 
-./scripts/show-status.sh
+echo "New status (Runtime API changes are temporary and lost on restart):"
+"$SCRIPT_DIR/show-status.sh"

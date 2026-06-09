@@ -16,7 +16,7 @@ validate:
 	docker compose run --rm haproxy haproxy -c -f /usr/local/etc/haproxy/haproxy.cfg
 
 test:
-	curl -s -i localhost:8080
+	curl -s -i 127.0.0.1:8080
 
 status:
 	./scripts/show-status.sh

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "set weight application/web-v1-a 50" | nc 127.0.0.1 9999 >/dev/null
-echo "set weight application/web-v1-b 50" | nc 127.0.0.1 9999 >/dev/null
-echo "set weight application/web-v2-canary 0" | nc 127.0.0.1 9999 >/dev/null
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
-./scripts/show-status.sh
+echo "Rolling back to stable (canary: 0)..."
+
+"$SCRIPT_DIR/set-canary.sh" 0
