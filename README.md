@@ -10,6 +10,8 @@ A practical project demonstrating how HAProxy operates as a load balancer and ha
 * Immediate rollback to stable nodes.
 
 ## Architecture
+
+![Architecture Diagram](docs/architecture.png)
 - HAProxy Frontend: `:8080`
 - HAProxy Stats Page: `:8404`
 - HAProxy Runtime API: `127.0.0.1:9999`
