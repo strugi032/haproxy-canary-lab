@@ -1,3 +1,99 @@
-Node: web-v2-canary
-Version: v2
-Release: canary
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>web-v2-canary | HAProxy Canary Lab</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+      color: #000000;
+      background: #ffffff;
+    }
+
+    .topbar {
+      height: 92px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 0 38px;
+      color: #ffffff;
+      background: #000000;
+      border-bottom: 3px solid #cccccc;
+    }
+
+    .logo {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+    }
+
+    .title {
+      font-size: 38px;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .content {
+      padding: 18px 12px 40px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .label {
+      font-size: 44px;
+      font-weight: 700;
+    }
+
+    .value {
+      font-size: 44px;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <img
+      class="logo"
+      src="/haproxy-icon.png"
+      alt="HAProxy Canary Lab"
+    >
+    <span class="title">HAProxy Canary Lab</span>
+  </header>
+
+  <main class="content">
+    <div class="row">
+      <div class="label">Node</div>
+      <div class="value">web-v2-canary</div>
+    </div>
+
+    <div class="row">
+      <div class="label">Version</div>
+      <div class="value">v2</div>
+    </div>
+
+    <div class="row">
+      <div class="label">Release</div>
+      <div class="value">Canary</div>
+    </div>
+  </main>
+</body>
+</html>
