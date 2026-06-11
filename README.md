@@ -2,6 +2,12 @@
 
 A practical project demonstrating how HAProxy operates as a load balancer and handles canary deployments via the Runtime API.
 
+## Purpose
+
+This repository is a local lab for understanding canary traffic shifting with HAProxy. It is intended for DevOps, platform, and SRE engineers who want to test weighted backend traffic, health checks, runtime changes, and rollback behavior without deploying a full production stack.
+
+The lab is designed for learning and experimentation. It should not be treated as a complete production deployment pattern without additional security, TLS, monitoring, and operational hardening.
+
 ## What this lab demonstrates
 * HAProxy HTTP traffic distribution.
 * Weighted round-robin balancing between stable (`v1`) and canary (`v2`) nodes.
@@ -21,6 +27,12 @@ A practical project demonstrating how HAProxy operates as a load balancer and ha
   - `web-v2-canary` (Canary)
 
 ## Usage Commands
+
+Prerequisites:
+
+- Docker and Docker Compose.
+- `make`.
+- `curl` for local request testing.
 
 **Start the lab:**
 ```bash
@@ -78,3 +90,10 @@ make rollback
 make distribution
 make down
 ```
+
+## Technologies Demonstrated
+
+- HAProxy load balancing.
+- HAProxy Runtime API.
+- Docker Compose.
+- Shell and Makefile-based lab automation.
